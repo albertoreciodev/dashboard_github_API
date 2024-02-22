@@ -14,6 +14,13 @@ module.exports = {
 						tsx: true,
 					},
 					transform: {
+						optimizer: {
+							globals: {
+								vars: {
+									"import.meta.env.MODE": "'development'",
+								},
+							},
+						},
 						react: {
 							runtime: "automatic",
 						},
@@ -23,6 +30,7 @@ module.exports = {
 		],
 	},
 	moduleNameMapper: {
+		"\\.svg$": "<rootDir>/tests/svg.mock.js",
 		"\\.(css|less|scss|sass)$": "identity-obj-proxy",
 		"\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
 			"jest-transform-stub",
