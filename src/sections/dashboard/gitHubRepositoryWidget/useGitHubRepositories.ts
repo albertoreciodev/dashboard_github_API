@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { GitHubRepository } from "../../domain/GitHubRepository";
-import { GitHubRepositoryRepository } from "../../domain/GitHubRepository_Repository";
+import { GitHubRepository } from "../../../domain/GitHubRepository";
+import { GitHubRepositoryRepository } from "../../../domain/GitHubRepository_Repository";
 
 export const useGitHubRepositories = (repository: GitHubRepositoryRepository, repositoryUrls: string[]): {repositoryData: GitHubRepository[]; isLoading: boolean;} => {
 

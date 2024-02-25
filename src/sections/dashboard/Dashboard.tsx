@@ -2,21 +2,41 @@ import { config } from "../../devdash_config";
 import styles from "./Dashboard.module.scss";
 
 import { GitHubRepositoryRepository } from "../../domain/GitHubRepository_Repository";
-import { GitHubRepositoryWidget } from "./GitHubRepositoryWidget";
-import { useGitHubRepositories } from "./useGitHubRepositories";
-import { WidgetsSkeleton } from "./WidgetsSkeleton";
+import { GitHubRepositoryWidget } from "./repositoryWidget/RepositoryWidget";
+import { useGitHubRepositories } from "./gitHubRepositoryWidget/useGitHubRepositories";
+import { RepositoryWidgetsSkeleton } from "./repositoryWidget/RepositoryWidgetsSkeleton";
+import { RepositoryWidget } from "../../domain/RepositoryWidget";
+import { RepositoryWidgetRepository } from "../../domain/RepositoryWidgetRepository";
+import { useMemo } from "react";
 
 const gitHubRepositoryUrls = config.widgets.map((widget) => widget.repository_url);
 
-export const Dashboard = ({ repository }: { repository: GitHubRepositoryRepository }) => {
-	const { repositoryData, isLoading } = useGitHubRepositories(repository, gitHubRepositoryUrls);
+export function Dashboard({
+	gitHubRepositoryRepository,
+	repositoryWidgetRepository,
+	repositoryWidgets,
+}: {
+	gitHubRepositoryRepository: GitHubRepositoryRepository;
+	repositoryWidgetRepository: RepositoryWidgetRepository;
+	repositoryWidgets: RepositoryWidget[];
+}) {
+	//const { repositoryData, isLoading } = useGitHubRepositories(repository, gitHubRepositoryUrls);
+
+	const gitHubRepositoryUrls = useMemo(() => {
+		return repositoryWidgets.map((widget) => widget.repositoryUrl);
+	}, [repositoryWidgets]);
+
+	const { repositoryData, isLoading } = useGitHubRepositories(
+		gitHubRepositoryRepository,
+		gitHubRepositoryUrls
+	);
 
 	return (
 		<>
 			{/* <DashboardHeader /> */}
 			{isLoading && (
 				<section className={styles.container}>
-					<WidgetsSkeleton numberOfWidgets={gitHubRepositoryUrls.length} />
+					<RepositoryWidgetsSkeleton numberOfWidgets={gitHubRepositoryUrls.length} />
 				</section>
 			)}
 			{!isLoading && repositoryData.length === 0 ? (
@@ -35,4 +55,4 @@ export const Dashboard = ({ repository }: { repository: GitHubRepositoryReposito
 			)}
 		</>
 	);
-};
+}

@@ -3,7 +3,7 @@ import { defineConfig } from "cypress";
 export default defineConfig({
 	video: false,
 	e2e: {
-		baseUrl: "http://localhost:3000",
+		baseUrl: "http://localhost:3030",
 		specPattern: "tests/e2e/tests/**/*.spec.{js,jsx,ts,tsx}",
 		screenshotOnRunFailure: false,
 		video: false,

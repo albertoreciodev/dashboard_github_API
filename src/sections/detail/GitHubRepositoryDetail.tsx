@@ -1,27 +1,36 @@
 import { useParams } from "react-router-dom";
-import { useGitHubRepository } from "./useGitHubRepository";
-import styles from "./GitHubRepositoryDetail.module.scss";
 import { useMemo } from "react";
 import { GitHubRepositoryRepository } from "../../domain/GitHubRepository_Repository";
 
+import { Loader } from "../layout/Loader";
+import { RepositoryId } from "../../domain/GitHubRepository";
+
+import { GitHubRepositoryPullRequestRepository } from "../../domain/GitHubRepositoryPullRequestRepository";
+import { useInViewport } from "../layout/useInViewport";
+import { useGitHubRepository } from "./useGitHubRepository";
+import { PullRequests } from "./PullRequests";
+
+import styles from "./GitHubRepositoryDetail.module.scss";
 import Lock from "../../assets/svg/lock.svg?react";
 import Unlock from "../../assets/svg/unlock.svg?react";
 
-export const GitHubRepositoryDetail = ({
-	repository,
+export function GitHubRepositoryDetail({
+	gitHubRepositoryRepository,
+	gitHubRepositoryPullRequestRepository,
 }: {
-	repository: GitHubRepositoryRepository;
-}) => {
+	gitHubRepositoryRepository: GitHubRepositoryRepository;
+	gitHubRepositoryPullRequestRepository: GitHubRepositoryPullRequestRepository;
+}) {
+	const { isInViewport, ref } = useInViewport();
 	const { organization, name } = useParams() as { organization: string; name: string };
 
 	const repositoryId = useMemo(() => ({ name, organization }), [name, organization]);
-	const { repositoryData } = useGitHubRepository(repository, repositoryId);
+	const { repositoryData } = useGitHubRepository(gitHubRepositoryRepository, repositoryId);
 
 	if (!repositoryData) {
 		return <></>;
 	}
 
-	//return <div>Página de detalle de un repositorio.{repositoryData.url}</div>;
 	return (
 		<section className={styles["repository-detail"]}>
 			<header className={styles.header}>
@@ -65,7 +74,7 @@ export const GitHubRepositoryDetail = ({
 				<>
 					<p>
 						⏱️Last workflow run:{" "}
-						{repositoryData.workflowRunsStatus[0]?.createdAt.toLocaleDateString("es-ES")}
+						{repositoryData.workflowRunsStatus[0].createdAt.toLocaleDateString("es-ES")}
 					</p>
 					<table className={styles.detail__table}>
 						<thead>
@@ -97,6 +106,15 @@ export const GitHubRepositoryDetail = ({
 			) : (
 				<p>There are no workflow runs</p>
 			)}
+
+			<section ref={ref}>
+				{isInViewport && (
+					<PullRequests
+						repository={gitHubRepositoryPullRequestRepository}
+						repositoryId={repositoryId}
+					/>
+				)}
+			</section>
 		</section>
 	);
-};
+}
