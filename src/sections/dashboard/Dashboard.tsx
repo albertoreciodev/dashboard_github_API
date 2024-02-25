@@ -2,7 +2,7 @@ import { config } from "../../devdash_config";
 import styles from "./Dashboard.module.scss";
 
 import { GitHubRepositoryRepository } from "../../domain/GitHubRepository_Repository";
-import { GitHubRepositoryWidget } from "./repositoryWidget/RepositoryWidget";
+import { GitHubRepositoryWidget } from "./gitHubRepositoryWidget/GitHubRepositoryWidget";
 import { useGitHubRepositories } from "./gitHubRepositoryWidget/useGitHubRepositories";
 import { RepositoryWidgetsSkeleton } from "./repositoryWidget/RepositoryWidgetsSkeleton";
 import { RepositoryWidget } from "../../domain/RepositoryWidget";

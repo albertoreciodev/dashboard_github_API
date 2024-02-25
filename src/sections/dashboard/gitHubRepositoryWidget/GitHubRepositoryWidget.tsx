@@ -5,11 +5,11 @@ import Lock from "../../../assets/svg/lock.svg?react";
 import Unlock from "../../../assets/svg/unlock.svg?react";
 import Check from "../../../assets/svg/check.svg?react";
 import Error from "../../../assets/svg/error.svg?react";
-import PullRequests from "../../../assets/svg/git-pull-request.svg?react";
 import IssueOpened from "../../../assets/svg/issue-opened.svg?react";
 import Forks from "../../../assets/svg/repo-forked.svg?react";
 import Start from "../../../assets/svg/star.svg?react";
 import Watchers from "../../../assets/svg/watchers.svg?react";
+import PullRequests from "../../../assets/svg/git-pull-request.svg?react";
 
 const isoToReadableDate = (lastUpdate: Date | string): string => {
 	const lastUpdateDate = typeof lastUpdate === "string" ? new Date(lastUpdate) : lastUpdate;

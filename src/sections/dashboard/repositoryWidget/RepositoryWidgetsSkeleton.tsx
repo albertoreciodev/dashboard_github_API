@@ -1,18 +1,11 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import styles from "./RepositoryWidgetSkeleton.module.scss";
 
-// import PullRequests from "../../assets/svgs/git-pull-request.svg";
-// import IssueOpened from "../../assets/svgs/issue-opened.svg";
-// import Forks from "../../assets/svgs/repo-forked.svg";
-// import Start from "../../assets/svgs/star.svg";
-// import Watchers from "../../assets/svgs/watchers.svg";
-
-import PullRequests from "../../../assets/svg/git-pull-request.svg?react";
 import IssueOpened from "../../../assets/svg/issue-opened.svg?react";
 import Forks from "../../../assets/svg/repo-forked.svg?react";
 import Start from "../../../assets/svg/star.svg?react";
 import Watchers from "../../../assets/svg/watchers.svg?react";
-
-import styles from "./RepositoryWidgetSkeleton.module.scss";
+import PullRequests from "../../../assets/svg/git-pull-request.svg?react";
 
 function RepositoryWidgetSkeleton() {
 	return (
